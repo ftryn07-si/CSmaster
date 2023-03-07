@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <div>
+            <label th:text="${paramOne}?:'DEFAULT PARAMONE NULL'"/>
+        </div>
+        <div>
+            <label th:text="${paramTwo} ? 'PARAMTWO IS NULL' : 'PARAMTWO NOT NULL'"/>
+        </div>
+            <div>
+                <label th:if="${ifCondition == null}">KONDISI IF == NULL</label>
+            </div>
+            <div>
+                <label th:if="${ifCondition != null}">KONDISI IF != NULL</label>
+            </div>
+            <div>
+                <label th:if="${ifCondition != null}">KONDISI IF != NULL</label>
+            </div>
+            <div>
+                <label th:unless="${unlessCondition == null}">KONDISI UNLESS == NULL</label>
+            </div>
+            <div>
+                <label th:unless="${unlessCondition != null}">KONDISI UNLESS != NULL</label>
+            </div>
+
+            <td th:switch="${#lists.size(listContentz)}"><!--ini adalah cara mengambil size dari attribut listContentz yang di set di server-->
+                <span th:case="'0'">LIST KOSONG</span>
+                <span th:case="'1'" th:text="${listContentz[0]}+'-- LIST SIZE NYA 1 SAJA'"></span>
+                <div th:case="*">
+                    <div th:each="contentList:${listContentz}" th:text="${contentList}"/>
+                </div>
+            </td>
+            <div>
+                <label th:text="${#strings.equalsIgnoreCase(userName,#strings.toUpperCase(userName))}+' --- PRINT KONDISI DENGAN FUNGSI STRING'" />
+            </div>
+            <div th:switch="${userName}"><!--ini isi nya compare string saja dengan switch-->
+                <span th:case="'paul'">ISI STRING PAUL</span>
+                <span th:case="'paulo'" th:text="${userName}+'-- ADALAH ISI VARIABEL USERNAME'"></span>
+                <div th:case="*">
+                    <div th:text="'SELAIN DARI PAUL DAN PAULO'"></div>
+                </div>
+            </div>
+            <div th:switch="${#strings.toLowerCase(userName)}"><!--ini isi nya compare string saja dengan switch-->
+                <span th:case='paul'>ISI STRING PAUL HANYA HURUF KECIL</span>
+                <span th:case='paulo' th:text="${userName}+'-- ADALAH ISI VARIABEL USERNAME -> LOWERCASE'"></span>
+                <div th:case="*">
+                    <div th:text="'SELAIN DARI paul DAN paulo'"></div>
+                </div>
+            </div>
+
+            <div th:switch="${#strings.toUpperCase(userName)}"><!--ini isi nya compare string saja dengan switch-->
+                <div th:case="null">
+                    <div th:text="'ISINYA NULL'"></div>
+                </div>
+                <span th:case='PAUL'>ISI STRING PAUL HANYA HURUF BESAR</span>
+                <span th:case='PAULO' th:text="${userName}+'-- ADALAH ISI VARIABEL USERNAME -> UPPERCASE'"></span>
+                <div th:case="*">
+                    <div th:text="'SELAIN DARI PAUL DAN PAULO'"></div>
+                </div>
+            </div>
+
+        <div>
+            <button>CUMIX</button>
+        </div>
+<ul th:each="childArrays,setIndex:${AKZEZ}" >
+    <a href="#" th:text="${AKZEZ.get(setIndex.index).strStringTestwo}"/>
+        <li th:each="childElement:${childArrays.listMenu}">
+            <a th:href="@{${childElement.linkSubMenu}}" th:text="${childElement.linkSubMenu}"/>
+        </li>
+</ul>
+
+<!--        <ul>-->
+<!--            <p th:utext="${session.LINK_MENU}">Welcome to our grocery store!</p>-->
+<!--</ul>-->
+
+<!--        <div id="myDiv">HELLO WORLD</div>-->
+<!--<script>-->
+<!--    document.getElementById("myDiv").innerHTML="<strong>KANCUT KANCUT</strong>";-->
+<!--</script>-->
+</body>
+</html>
